@@ -35,12 +35,14 @@ import {
 import { AuthenticationState, IAccountInfo, IAuthProvider } from './Interfaces';
 import { Logger } from './logger';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 const IDTokenKey = 'msal.idtoken';
 
 const StorageLocations: { localStorage: string; sessionStorage: string, AsyncStorage: string  } = {
   localStorage: 'localStorage',
   sessionStorage: 'sessionStorage',
-  AsyncStorage: 'AsyncStorage',
+  asyncStorage: 'asyncStorage',
 };
 
 export abstract class MsalAuthProvider implements IAuthProvider {
@@ -151,7 +153,7 @@ export abstract class MsalAuthProvider implements IAuthProvider {
       return localStorage.getItem(itemKey);
     } else if (storageLocation === StorageLocations.sessionStorage) {
       return sessionStorage.getItem(itemKey);
-    } else if (storageLocation === StorageLocations.AsyncStorage) {
+    } else if (storageLocation === StorageLocations.asyncStorage) {
       return AsyncStorage.getItem(itemKey);
     } else {
       throw new Error('unrecognized storage location');
