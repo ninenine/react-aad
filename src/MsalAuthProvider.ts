@@ -37,9 +37,10 @@ import { Logger } from './logger';
 
 const IDTokenKey = 'msal.idtoken';
 
-const StorageLocations: { localStorage: string; sessionStorage: string } = {
+const StorageLocations: { localStorage: string; sessionStorage: string, AsyncStorage: string  } = {
   localStorage: 'localStorage',
   sessionStorage: 'sessionStorage',
+  AsyncStorage: 'AsyncStorage',
 };
 
 export abstract class MsalAuthProvider implements IAuthProvider {
@@ -150,6 +151,8 @@ export abstract class MsalAuthProvider implements IAuthProvider {
       return localStorage.getItem(itemKey);
     } else if (storageLocation === StorageLocations.sessionStorage) {
       return sessionStorage.getItem(itemKey);
+    } else if (storageLocation === StorageLocations.AsyncStorage) {
+      return AsyncStorage.getItem(itemKey);
     } else {
       throw new Error('unrecognized storage location');
     }
